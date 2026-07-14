@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/constants/color_constants.dart';
 import 'package:hire_pro/core/constants/sizes_constants.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
+import 'package:hire_pro/core/router/app_routes.dart';
 import 'package:hire_pro/shared/widgets/buttons/primary_button.dart';
 import 'package:hugeicons_pro/hugeicons.dart';
 
@@ -168,9 +169,8 @@ class _SplashScreenState extends State<SplashScreen>
                         label: 'Get Started',
 
                         onTap: () {
-                          // TODO: navigate to onboarding/auth
 
-                          context.push('/error');
+                          context.push(AppRoutes.auth);
                         },
                         width: double.infinity,
                         textColor: AppColor.white,

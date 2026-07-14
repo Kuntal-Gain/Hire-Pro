@@ -56,7 +56,7 @@ class AuthUsecaseImpl implements AuthUsecase {
     try {
       final json = await SupabaseManager.from(
         Tables.users,
-      ).select().eq('id', SupabaseManager.currentUserId!).single();
+      ).select().eq('uid', SupabaseManager.currentUserId!).single();
 
       return Resource.success(UserModel.fromJson(json));
     } catch (e) {

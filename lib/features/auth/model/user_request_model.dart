@@ -17,7 +17,7 @@ class UserRequestModel {
     return {
       'uid': uid,
       'email': email,
-      'type': type.name,
+      'user_type': type.name,
     };
   }
 }

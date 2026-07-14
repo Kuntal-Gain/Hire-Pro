@@ -8,6 +8,9 @@ final class AppRoutes {
   // Auth
   static const String auth = '/auth';
 
+  // main entrypoint
+  static const String home = '/home';
+
   // Applicant
   // static const String home = '/home';
   // static const String jobs = '/jobs';

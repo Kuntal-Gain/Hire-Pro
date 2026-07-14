@@ -17,7 +17,6 @@ class AuthNotifier extends AsyncNotifier<UserModel?> {
     (await uc.login(email, password)).unwrap();
 
     ref.invalidateSelf();
-    await future;
   }
 
   Future<void> register({
@@ -51,3 +50,6 @@ class AuthNotifier extends AsyncNotifier<UserModel?> {
     await future;
   }
 }
+
+final authProvider =
+    AsyncNotifierProvider<AuthNotifier, UserModel?>(AuthNotifier.new);

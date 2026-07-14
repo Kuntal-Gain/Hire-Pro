@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
+import 'package:hire_pro/features/auth/view/auth_screen.dart';
+import 'package:hire_pro/features/home/home_screen.dart';
 import 'package:hire_pro/features/splash/splash_screen.dart';
 import 'package:hire_pro/shared/widgets/buttons/primary_button.dart';
 import 'package:hire_pro/shared/widgets/common_app_bar.dart';
@@ -26,6 +28,9 @@ final class AppRouter {
       ),
 
       // Auth
+      GoRoute(path: AppRoutes.auth, builder: (_, _) => AuthScreen()),
+
+      GoRoute(path: AppRoutes.home, builder: (_, _) => HomeScreen()),
     ],
 
     errorBuilder: (context, state) => NoPageFoundScreen(),
@@ -55,7 +60,7 @@ class NoPageFoundScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColor.primary,
-                  fontSize: 22
+                  fontSize: 22,
                 ),
                 textAlign: TextAlign.center,
               ),
