@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/constants/color_constants.dart';
 import 'package:hire_pro/core/constants/sizes_constants.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
@@ -165,10 +166,14 @@ class _SplashScreenState extends State<SplashScreen>
                     children: [
                       PrimaryButton(
                         label: 'Get Started',
+
                         onTap: () {
                           // TODO: navigate to onboarding/auth
+
+                          context.push('/error');
                         },
                         width: double.infinity,
+                        textColor: AppColor.white,
                         borderRadius: AppSizes.r12,
                         backgroundColor: AppColor.primary,
                         icon: HugeIconsSolid.arrowRight02,

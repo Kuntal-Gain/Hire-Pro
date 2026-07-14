@@ -58,10 +58,10 @@ class PrimaryButton extends StatelessWidget {
         ? Colors.transparent
         : (backgroundColor ?? AppColor.primary);
 
-    final resolvedBg = _isInteractive ? bg : _disabledBg;
+    // final resolvedBg = _isInteractive ? bg : _disabledBg;
     final resolvedText = _isInteractive
         ? (textColor ??
-              (isOutlined ? AppColor.primary : AppColor.textOnPrimary))
+              (isOutlined ? AppColor.primary : AppColor.white))
         : AppColor.textDisabled;
     final resolvedBorder = isOutlined
         ? (borderColor ?? (isDisabled ? AppColor.border : AppColor.primary))
@@ -73,11 +73,11 @@ class PrimaryButton extends StatelessWidget {
         width: width,
         height: height,
         child: Material(
-          color: resolvedBg,
+          color: bg,
           borderRadius: BorderRadius.circular(borderRadius),
           elevation: _isInteractive ? elevation : 0,
           child: InkWell(
-            onTap: _isInteractive ? onTap : null,
+            onTap: _isInteractive ? onTap : () {},
             borderRadius: BorderRadius.circular(borderRadius),
             splashColor: resolvedText.withValues(alpha: 0.1),
             child: Container(
@@ -95,7 +95,7 @@ class PrimaryButton extends StatelessWidget {
                       height: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2.2,
-                        valueColor: AlwaysStoppedAnimation<Color>(resolvedText),
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColor.white),
                       ),
                     )
                   : _buildContent(resolvedText),
