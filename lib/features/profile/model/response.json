@@ -1,0 +1,187 @@
+{
+  "id": "2f9d8d2c-91f1-4f1c-9e8d-3c0d7a1b9d45",
+
+  "personalDetails": {
+    "fullName": "Kuntal Gain",
+    "profileImage": "https://cdn.hirepro.com/users/kuntal/profile.jpg",
+    "headline": "Flutter Developer | Cross-Platform Mobile Engineer",
+    "bio": "Passionate Flutter developer specializing in Flutter, Riverpod, Supabase and Firebase.",
+    "phone": "+91 9876543210",
+    "email": "kuntal.gain@gmail.com",
+    "gender": "Male",
+    "dateOfBirth": "2002-04-18",
+    "location": {
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "country": "India"
+    },
+    "portfolio": "https://kuntalgain.dev",
+    "linkedin": "https://linkedin.com/in/kuntalgain",
+    "github": "https://github.com/kuntalgain",
+    "website": "https://kuntalgain.dev"
+  },
+
+  "academicDetails": {
+    "education": [
+      {
+        "degree": "Bachelor of Technology",
+        "specialization": "Computer Science & Engineering",
+        "institution": "Abacus Institute of Engineering &Management",
+        "boardOrUniversity": "MAKAUT",
+        "startYear": 2021,
+        "endYear": 2025,
+        "grade": "8.10",
+        "gradeType": "CGPA"
+      },
+      {
+        "degree": "Higher Secondary",
+        "specialization": "Science",
+        "institution": "Burdwan Municipal High School",
+        "boardOrUniversity": "WBCHSE",
+        "startYear": 2019,
+        "endYear": 2021,
+        "grade": "82%",
+        "gradeType": "Percentage"
+      }
+    ],
+    "certifications": [
+      {
+        "title": "Flutter & Dart - The Complete Guide",
+        "issuer": "Udemy",
+        "issueDate": "2025-08-15",
+        "credentialId": "FLUTTER-123456",
+        "credentialUrl": "https://udemy.com/certificate/123456"
+      }
+    ]
+  },
+
+  "professionalDetails": {
+    "totalExperience": 1.5,
+
+    "skills": [
+      {
+        "name": "Flutter",
+        "yearsOfExperience": 1.5
+      },
+      {
+        "name": "Dart",
+        "yearsOfExperience": 2
+      },
+      {
+        "name": "Riverpod",
+        "yearsOfExperience": 1.5
+      },
+      {
+        "name": "Supabase",
+        "yearsOfExperience": 1
+      },
+      {
+        "name": "Firebase",
+        "yearsOfExperience": 2
+      },
+      {
+        "name": "REST API",
+        "yearsOfExperience": 2
+      },
+      {
+        "name": "Git",
+        "yearsOfExperience": 2
+      }
+    ],
+
+    "workHistory": [
+      {
+        "companyId": "049f521f-cbc6-44a0-9560-b12345678901",
+        "companyName": "Devant IT Solutions Pvt. Ltd.",
+        "designation": "Flutter Developer",
+        "employmentType": "Full Time",
+        "workMode": "On-site",
+        "location": "Kolkata, India",
+        "startDate": "2025-11-10",
+        "endDate": null,
+        "currentlyWorking": true,
+        "description": "Building enterprise Flutter applications using Riverpod, Supabase and Clean Architecture."
+      },
+      {
+        "companyId": null,
+        "companyName": "CodeCraft Technologies",
+        "designation": "Flutter Intern",
+        "employmentType": "Internship",
+        "workMode": "Remote",
+        "location": "Remote",
+        "startDate": "2025-04-01",
+        "endDate": "2025-10-31",
+        "currentlyWorking": false,
+        "description": "Developed reusable widgets and integrated Firebase Authentication & Firestore."
+      }
+    ],
+
+    "projects": [
+      {
+        "title": "Hire-Pro",
+        "description": "Modern recruitment platform connecting recruiters and applicants.",
+        "technologies": ["Flutter", "Riverpod", "Supabase", "GoRouter"],
+        "projectUrl": "https://hirepro.app",
+        "githubUrl": "https://github.com/kuntalgain/hirepro"
+      },
+      {
+        "title": "Book Hive",
+        "description": "Cloud-based digital library application.",
+        "technologies": ["Flutter", "Firebase", "Cloudinary"],
+        "projectUrl": "https://bookhive.app",
+        "githubUrl": "https://github.com/kuntalgain/bookhive"
+      }
+    ],
+
+    "resume": {
+      "name": "Kuntal_Gain_Resume.pdf",
+      "url": "https://cdn.hirepro.com/resumes/kuntal_gain_resume.pdf",
+      "uploadedAt": "2026-07-16T09:30:00Z"
+    }
+  },
+
+  "jobPreferences": {
+    "jobTitles": [
+      "Flutter Developer",
+      "Software Engineer",
+      "Mobile Application Developer"
+    ],
+
+    "employmentTypes": ["Full Time"],
+
+    "workModes": ["Remote", "Hybrid"],
+
+    "preferredLocations": ["Kolkata", "Bengaluru", "Hyderabad", "Pune"],
+
+    "expectedSalary": {
+      "currency": "INR",
+      "minimum": 800000,
+      "maximum": 1200000
+    },
+
+    "noticePeriod": 30,
+
+    "openToRelocate": true,
+
+    "preferredIndustries": ["Information Technology", "Product Based"],
+
+    "preferredDepartments": ["Engineering", "Mobile Development"]
+  },
+
+  "profileMeta": {
+    "profileCompletion": 100,
+    "isProfileVerified": true,
+    "isOpenToWork": true,
+
+    "resumeUploaded": true,
+
+    "profileViews": 186,
+    "savedJobs": 12,
+    "totalApplications": 24,
+
+    "lastActiveAt": "2026-07-16T18:45:00Z"
+  },
+
+  "createdAt": "2026-07-16T10:00:00Z",
+  "updatedAt": "2026-07-16T18:45:00Z"
+}

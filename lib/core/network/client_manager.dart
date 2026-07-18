@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final class SupabaseManager {
@@ -11,11 +13,32 @@ final class SupabaseManager {
 
   static RealtimeClient get realtime => client.realtime;
 
+  /// Uploads [bytes] to `bucket/path` and returns the public URL.
+  static Future<String> uploadFile({
+    required String bucket,
+    required String path,
+    required Uint8List bytes,
+    String? contentType,
+  }) async {
+    await storage
+        .from(bucket)
+        .uploadBinary(
+          path,
+          bytes,
+          fileOptions: FileOptions(contentType: contentType, upsert: true),
+        );
+
+    return storage.from(bucket).getPublicUrl(path);
+  }
+
   static SupabaseQueryBuilder from(String table) {
     return client.from(table);
   }
 
-  static PostgrestFilterBuilder<dynamic> rpc(String fn, {Map<String, dynamic>? params}) {
+  static PostgrestFilterBuilder<dynamic> rpc(
+    String fn, {
+    Map<String, dynamic>? params,
+  }) {
     return client.rpc(fn, params: params);
   }
 

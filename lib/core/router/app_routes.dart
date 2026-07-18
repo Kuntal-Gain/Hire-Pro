@@ -15,7 +15,7 @@ final class AppRoutes {
   // static const String home = '/home';
   // static const String jobs = '/jobs';
   // static const String jobDetails = '/jobs/:id';
-  // static const String profile = '/profile';
+  static const String applicantProfileSetup = '/profile/setup';
 
   // Employer
   // static const String employerDashboard = '/employer';

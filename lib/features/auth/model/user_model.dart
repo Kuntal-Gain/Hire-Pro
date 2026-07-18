@@ -1,5 +1,3 @@
-
-
 import '../../../core/utils/enums.dart';
 
 class UserModel {
@@ -24,9 +22,9 @@ class UserModel {
       uid: json['uid'],
       email: json['email'],
       usertype: UserTypeX.fromString(json['user_type']),
-      isProfileCreated: json['isProfileCreated'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt']),
+      isProfileCreated: json['is_profile_created'],
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
     );
   }
 }

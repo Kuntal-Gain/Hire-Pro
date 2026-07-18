@@ -1,8 +1,7 @@
-
 class Tables {
   Tables._();
   static const users = 'users';
-  static const candidates = 'candidates';
+  static const candidates = 'applicant_data';
   static const employers = 'employers';
   static const jobs = 'jobs';
   static const applications = 'applications';
@@ -13,8 +12,9 @@ class Tables {
 
 class Buckets {
   Buckets._();
+  static const profile = 'profile';
+  static const certifications = 'certifications';
   static const resumes = 'resumes';
-  static const profileImages = 'profile-images';
   static const companyLogos = 'company-logos';
 }
 

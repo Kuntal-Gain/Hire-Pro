@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/constants/color_constants.dart';
 import 'package:hire_pro/core/constants/sizes_constants.dart';
+import 'package:hire_pro/core/extensions/resource_extension.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
 import 'package:hire_pro/core/network/client_manager.dart';
+import 'package:hire_pro/core/network/locator.dart';
 import 'package:hire_pro/core/router/app_routes.dart';
 import 'package:hire_pro/core/utils/enums.dart';
 import 'package:hire_pro/features/auth/model/user_request_model.dart';
@@ -107,15 +109,20 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
             .login(email: _emailCtrl.text, password: _passCtrl.text);
       }
 
+      final user = (await ref.read(authServiceProvider).getCurrentUser()).unwrap();
+
       if (!context.mounted) return;
 
       FocusScope.of(context).unfocus();
 
-      // Navigate after successful login/signup
-      // ignore: use_build_context_synchronously
-      context.push(AppRoutes.home);
-      // or:
-      // context.go('/home'); // if using go_router
+      // Route applicants without a completed profile to the setup flow.
+      if (user != null &&
+          user.usertype == UserType.applicant &&
+          !user.isProfileCreated) {
+        context.go(AppRoutes.applicantProfileSetup);
+      } else {
+        context.go(AppRoutes.home);
+      }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(

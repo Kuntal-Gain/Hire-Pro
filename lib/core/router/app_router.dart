@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
 import 'package:hire_pro/features/auth/view/auth_screen.dart';
 import 'package:hire_pro/features/home/home_screen.dart';
+import 'package:hire_pro/features/profile/ui/applicant_profile_setup.dart';
 import 'package:hire_pro/features/splash/splash_screen.dart';
 import 'package:hire_pro/shared/widgets/buttons/primary_button.dart';
 import 'package:hire_pro/shared/widgets/common_app_bar.dart';
@@ -31,6 +32,11 @@ final class AppRouter {
       GoRoute(path: AppRoutes.auth, builder: (_, _) => AuthScreen()),
 
       GoRoute(path: AppRoutes.home, builder: (_, _) => HomeScreen()),
+
+      GoRoute(
+        path: AppRoutes.applicantProfileSetup,
+        builder: (_, _) => const ApplicantProfileSetupScreen(),
+      ),
     ],
 
     errorBuilder: (context, state) => NoPageFoundScreen(),

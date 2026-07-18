@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/constants/color_constants.dart';
 import 'package:hire_pro/core/constants/sizes_constants.dart';
+import 'package:hire_pro/core/extensions/resource_extension.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
+import 'package:hire_pro/core/network/client_manager.dart';
+import 'package:hire_pro/core/network/locator.dart';
 import 'package:hire_pro/core/router/app_routes.dart';
+import 'package:hire_pro/core/utils/enums.dart';
 import 'package:hire_pro/shared/widgets/buttons/primary_button.dart';
 import 'package:hugeicons_pro/hugeicons.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _fade;
   late final Animation<Offset> _slideLogo;
   late final Animation<Offset> _slideButton;
+
+  final bool _isLoggedIn = SupabaseManager.isAuthenticated;
+  bool _isCheckingSession = false;
 
   @override
   void initState() {
@@ -49,12 +57,33 @@ class _SplashScreenState extends State<SplashScreen>
         );
 
     _controller.forward();
+
+    if (_isLoggedIn) {
+      _resumeSession();
+    }
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _resumeSession() async {
+    setState(() => _isCheckingSession = true);
+    try {
+      final user = (await ref.read(authServiceProvider).getCurrentUser()).unwrap();
+
+      if (!context.mounted) return;
+
+      if (user != null && user.usertype == UserType.applicant && !user.isProfileCreated) {
+        context.go(AppRoutes.applicantProfileSetup);
+      } else {
+        context.go(AppRoutes.home);
+      }
+    } catch (_) {
+      if (context.mounted) setState(() => _isCheckingSession = false);
+    }
   }
 
   @override
@@ -163,38 +192,50 @@ class _SplashScreenState extends State<SplashScreen>
                 opacity: _fade,
                 child: SlideTransition(
                   position: _slideButton,
-                  child: Column(
-                    children: [
-                      PrimaryButton(
-                        label: 'Get Started',
-
-                        onTap: () {
-
-                          context.push(AppRoutes.auth);
-                        },
-                        width: double.infinity,
-                        textColor: AppColor.white,
-                        borderRadius: AppSizes.r12,
-                        backgroundColor: AppColor.primary,
-                        icon: HugeIconsSolid.arrowRight02,
-                        iconTrailing: true,
-                      ),
-                      SizedBox(height: AppSizes.s16),
-                      TextButton(
-                        onPressed: () {
-                          // TODO: navigate to login (forgot/login link)
-                        },
-                        child: Text(
-                          'Already have an account? Log in',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.textSecondary,
+                  child: _isCheckingSession
+                      ? SizedBox(
+                          height: 52,
+                          child: Center(
+                            child: SizedBox(
+                              width: 28,
+                              height: 28,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.6,
+                                valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary),
+                              ),
+                            ),
                           ),
+                        )
+                      : Column(
+                          children: [
+                            PrimaryButton(
+                              label: 'Get Started',
+                              onTap: () {
+                                context.push(AppRoutes.auth);
+                              },
+                              width: double.infinity,
+                              textColor: AppColor.white,
+                              borderRadius: AppSizes.r12,
+                              backgroundColor: AppColor.primary,
+                              icon: HugeIconsSolid.arrowRight02,
+                              iconTrailing: true,
+                            ),
+                            SizedBox(height: AppSizes.s16),
+                            TextButton(
+                              onPressed: () {
+                                // TODO: navigate to login (forgot/login link)
+                              },
+                              child: Text(
+                                'Already have an account? Log in',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.textSecondary,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
       
