@@ -8,7 +8,15 @@ class AuthNotifier extends AsyncNotifier<UserModel?> {
   @override
   Future<UserModel?> build() async {
     final uc = ref.read(authServiceProvider);
-    return (await uc.getCurrentUser()).unwrap();
+    final user = (await uc.getCurrentUser()).unwrap();
+
+    if (user != null) {
+      final storage = ref.read(localStorageServiceProvider);
+      await storage.setUserId(user.uid);
+      await storage.setUserType(user.usertype.name);
+    }
+
+    return user;
   }
 
   Future<void> login({required String email, required String password}) async {
@@ -17,6 +25,7 @@ class AuthNotifier extends AsyncNotifier<UserModel?> {
     (await uc.login(email, password)).unwrap();
 
     ref.invalidateSelf();
+    await future;
   }
 
   Future<void> register({
@@ -41,6 +50,8 @@ class AuthNotifier extends AsyncNotifier<UserModel?> {
     final uc = ref.read(authServiceProvider);
 
     (await uc.logout()).unwrap();
+
+    await ref.read(localStorageServiceProvider).clear();
 
     state = const AsyncData(null);
   }

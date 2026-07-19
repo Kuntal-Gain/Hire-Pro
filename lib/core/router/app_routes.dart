@@ -18,6 +18,7 @@ final class AppRoutes {
   static const String applicantProfileSetup = '/profile/setup';
 
   // Employer
+  static const String employerProfileSetup = '/employer/profile/setup';
   // static const String employerDashboard = '/employer';
   // static const String createJob = '/employer/create-job';
   // static const String manageJobs = '/employer/jobs';

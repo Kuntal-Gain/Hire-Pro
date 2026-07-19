@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hire_pro/core/network/locator.dart';
+import 'package:hire_pro/core/utils/enums.dart';
+import 'package:hire_pro/features/applicant_module/feed/ui/feed_screen.dart';
+import 'package:hire_pro/features/employer_module/feed/ui/feed_screen.dart';
 import 'package:hire_pro/shared/widgets/common_navbar.dart';
 import 'package:hugeicons_pro/hugeicons.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _currentIndex = 0;
+  late final Future<String?> _userTypeFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _userTypeFuture = ref.read(localStorageServiceProvider).userType;
+  }
 
   static const _tabs = [
     NavbarItem(icon: HugeIconsStroke.home01, label: 'Home'),
@@ -21,21 +33,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: const [
-          _Placeholder(label: 'Home'),
-          _Placeholder(label: 'History'),
-          _Placeholder(label: 'Resume'),
-          _Placeholder(label: 'Insights'),
-        ],
-      ),
-      bottomNavigationBar: CommonNavbar(
-        items: _tabs,
-        currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
-      ),
+    return FutureBuilder<String?>(
+      future: _userTypeFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+
+        final userType = UserTypeX.fromString(snapshot.data ?? '');
+
+        print("userType : ${userType.name}");
+
+        final feedScreen = userType == UserType.recruiter
+            ? const EmployerFeedScreen()
+            : const ApplicantFeedScreen();
+
+        return Scaffold(
+          body: IndexedStack(
+            index: _currentIndex,
+            children: [
+              feedScreen,
+              const _Placeholder(label: 'History'),
+              const _Placeholder(label: 'Resume'),
+              const _Placeholder(label: 'Insights'),
+            ],
+          ),
+          bottomNavigationBar: CommonNavbar(
+            items: _tabs,
+            currentIndex: _currentIndex,
+            onTap: (i) => setState(() => _currentIndex = i),
+          ),
+        );
+      },
     );
   }
 }

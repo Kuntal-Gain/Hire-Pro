@@ -2,7 +2,8 @@ class Tables {
   Tables._();
   static const users = 'users';
   static const candidates = 'applicant_data';
-  static const employers = 'employers';
+  static const employers = 'employer_data';
+  static const companies = 'company';
   static const jobs = 'jobs';
   static const applications = 'applications';
   static const skills = 'skills';

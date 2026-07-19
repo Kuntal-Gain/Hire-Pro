@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/constants/color_constants.dart';
 import 'package:hire_pro/core/constants/sizes_constants.dart';
-import 'package:hire_pro/core/extensions/resource_extension.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
 import 'package:hire_pro/core/network/client_manager.dart';
-import 'package:hire_pro/core/network/locator.dart';
 import 'package:hire_pro/core/router/app_routes.dart';
 import 'package:hire_pro/core/utils/enums.dart';
 import 'package:hire_pro/features/auth/model/user_request_model.dart';
@@ -109,7 +107,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
             .login(email: _emailCtrl.text, password: _passCtrl.text);
       }
 
-      final user = (await ref.read(authServiceProvider).getCurrentUser()).unwrap();
+      final user = ref.read(authProvider).value;
 
       if (!context.mounted) return;
 
@@ -120,7 +118,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
           user.usertype == UserType.applicant &&
           !user.isProfileCreated) {
         context.go(AppRoutes.applicantProfileSetup);
-      } else {
+      } else if(user != null && user.usertype == UserType.recruiter &&
+          !user.isProfileCreated) {
+            context.go(AppRoutes.employerProfileSetup);
+          } else {
         context.go(AppRoutes.home);
       }
     } catch (e) {

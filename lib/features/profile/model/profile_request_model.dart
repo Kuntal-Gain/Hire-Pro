@@ -26,6 +26,29 @@ class ApplicantProfileRequestModel {
   }
 }
 
+class EmployerProfileRequestModel {
+  final String? userId;
+  final PersonalDetailsRequestModel? personal;
+  final ProfessionalDetailsRequestModel? professional;
+  final String companyId;
+
+  EmployerProfileRequestModel({
+    required this.userId,
+    required this.personal,
+    required this.professional,
+    required this.companyId,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "user_id": userId,
+      "personal": personal?.toJson() ?? {},
+      "professional": professional?.toJson() ?? {},
+      "company_id": companyId,
+    };
+  }
+}
+
 /// —————————————————————————————————————————————————————
 ///         [PERSONAL DETAILS REQUEST MODEL]
 /// —————————————————————————————————————————————————————

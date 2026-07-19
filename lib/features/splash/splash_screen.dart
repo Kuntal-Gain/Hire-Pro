@@ -4,12 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hire_pro/core/constants/color_constants.dart';
 import 'package:hire_pro/core/constants/sizes_constants.dart';
-import 'package:hire_pro/core/extensions/resource_extension.dart';
 import 'package:hire_pro/core/extensions/size_extension.dart';
 import 'package:hire_pro/core/network/client_manager.dart';
-import 'package:hire_pro/core/network/locator.dart';
 import 'package:hire_pro/core/router/app_routes.dart';
 import 'package:hire_pro/core/utils/enums.dart';
+import 'package:hire_pro/features/auth/provider/auth_provider.dart';
 import 'package:hire_pro/shared/widgets/buttons/primary_button.dart';
 import 'package:hugeicons_pro/hugeicons.dart';
 
@@ -72,13 +71,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   Future<void> _resumeSession() async {
     setState(() => _isCheckingSession = true);
     try {
-      final user = (await ref.read(authServiceProvider).getCurrentUser()).unwrap();
+      await ref.read(authProvider.notifier).refresh();
+      final user = ref.read(authProvider).value;
 
       if (!context.mounted) return;
 
       if (user != null && user.usertype == UserType.applicant && !user.isProfileCreated) {
         context.go(AppRoutes.applicantProfileSetup);
-      } else {
+      }  else if(user != null && user.usertype == UserType.recruiter &&
+          !user.isProfileCreated) {
+            context.go(AppRoutes.employerProfileSetup);
+          } else {
         context.go(AppRoutes.home);
       }
     } catch (_) {
